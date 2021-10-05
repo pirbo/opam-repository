@@ -17,7 +17,7 @@ depends: [
   "ctypes-foreign"
   "conf-which" {build}
 ]
-available: os-family != "bsd"
+available: os = "freebsd" | os-family != "bsd"
 x-ci-accept-failures: [
   "centos-7" # GCC is too old
   "oraclelinux-7" # GCC is too old
