@@ -1,0 +1,26 @@
+opam-version: "2.0"
+maintainer: "contact@tezos.com"
+authors: ["Tezos devteam"]
+homepage: "https://www.tezos.com/"
+bug-reports: "https://gitlab.com/tezos/tezos/issues"
+dev-repo: "git+https://gitlab.com/tezos/tezos.git"
+license: "MIT"
+depends: [
+  "dune" { >= "3.0" }
+  "tezos-base" { = version }
+  "tezos-rpc" { = version }
+  "tezos-client-base" { = version }
+]
+build: [
+  ["rm" "-r" "vendors"]
+  ["dune" "build" "-p" name "-j" jobs]
+  ["dune" "runtest" "-p" name "-j" jobs] {with-test}
+]
+synopsis: "Tezos: descriptions of RPCs exported by `tezos-signer`"
+url {
+  src: "https://gitlab.com/tezos/tezos/-/archive/v15.0-rc1/tezos-v15.0-rc1.tar.bz2"
+  checksum: [
+    "sha256=efeecdb459e514545e285a1950dc565305503ae1d8b299389482d162ea695fad"
+    "sha512=4622164ccc1b7f3496dc94512ad57693ba3dd3feed8c58cb41fcbde0b60da1d6fe648c6218b2a8b353822459d8e108a65781fc938f16699c7cd3ac9abdf65a16"
+  ]
+}

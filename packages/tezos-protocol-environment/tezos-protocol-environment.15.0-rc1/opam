@@ -1,0 +1,57 @@
+opam-version: "2.0"
+maintainer: "contact@tezos.com"
+authors: ["Tezos devteam"]
+homepage: "https://www.tezos.com/"
+bug-reports: "https://gitlab.com/tezos/tezos/issues"
+dev-repo: "git+https://gitlab.com/tezos/tezos.git"
+license: "MIT"
+depends: [
+  "dune" { >= "3.0" }
+  "ocaml" { >= "4.12" }
+  "tezos-stdlib" { = version }
+  "tezos-crypto" { = version }
+  "tezos-lwt-result-stdlib" { = version }
+  "tezos-scoru-wasm" { = version }
+  "data-encoding" { >= "0.6" & < "0.7" }
+  "bls12-381" { >= "5.0.0" & < "5.1.0" }
+  "tezos-plonk" { >= "0.1.2" }
+  "zarith" { >= "1.12" & < "1.13" }
+  "zarith_stubs_js"
+  "tezos-crypto-dal" { = version }
+  "class_group_vdf" { >= "0.0.4" }
+  "ringo" { >= "0.9" }
+  "ringo-lwt" { >= "0.9" }
+  "tezos-base" { = version }
+  "tezos-sapling" { = version }
+  "tezos-micheline" { = version }
+  "tezos-context" { = version }
+  "tezos-event-logging" { = version }
+  "alcotest-lwt" { with-test & >= "1.5.0" }
+  "tezos-test-helpers" { with-test & = version }
+  "qcheck-alcotest" { with-test & >= "0.18" }
+  "lwt" { with-test & >= "5.6.0" }
+]
+build: [
+  ["rm" "-r" "vendors"]
+  ["dune" "build" "-p" name "-j" jobs]
+  ["dune" "runtest" "-p" name "-j" jobs] {with-test}
+]
+synopsis: "Interface layer between the protocols and the shell"
+url {
+  src: "https://gitlab.com/tezos/tezos/-/archive/v15.0-rc1/tezos-v15.0-rc1.tar.bz2"
+  checksum: [
+    "sha256=efeecdb459e514545e285a1950dc565305503ae1d8b299389482d162ea695fad"
+    "sha512=4622164ccc1b7f3496dc94512ad57693ba3dd3feed8c58cb41fcbde0b60da1d6fe648c6218b2a8b353822459d8e108a65781fc938f16699c7cd3ac9abdf65a16"
+  ]
+}
+description: "The protocol-environment is a two-sided component sitting between the shell and
+the protocols.
+
+On one side, it provides a restricted typing environment to compile the
+protocols against. This is a series of modules which replace the standard
+library of OCaml. These modules purposefully omit many functionalities, thus
+preventing the protocols from, say, directly writing to disk.
+
+On the other side, it provides the shell with specific call-sites in the
+protocols. These are the only entry-points into the otherwise black-box
+protocols."
